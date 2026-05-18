@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Abdulelah Alshareef | CPIT 455</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0d1b2a;
+      --navy2:  #112240;
+      --teal:   #0f9d9d;
+      --teal2:  #0cc;
+      --red:    #e63946;
+      --amber:  #f4a261;
+      --green:  #2ecc71;
+      --purple: #9b59b6;
+      --text:   #e0e0e0;
+      --muted:  #8a9bb0;
+      --card:   #16213e;
+      --border: rgba(15,157,157,0.25);
+    }
+
+    body {
+      background: var(--navy);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ── Layout ─────────────────────────────────────────────── */
+    .page { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+    section { margin-bottom: 3rem; }
+
+    .section-header {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.75rem 1.25rem;
+      background: var(--navy2);
+      border-left: 4px solid var(--teal);
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin-bottom: 1.5rem;
+    }
+    .section-num {
+      font-size: 1.5rem; font-weight: 800; color: var(--teal); line-height: 1;
+    }
+    .section-title {
+      font-size: 1.125rem; font-weight: 700; color: #fff;
+    }
+
+    /* ── Hero ───────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy2) 0%, #0a3d4d 100%);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2.5rem 2rem;
+      margin-bottom: 3rem;
+      display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+    }
+    .hero-avatar {
+      width: 5rem; height: 5rem; border-radius: 50%;
+      background: var(--teal); display: flex; align-items: center;
+      justify-content: center; font-size: 2rem; flex-shrink: 0;
+    }
+    .hero-name { font-size: 1.75rem; font-weight: 800; color: #fff; }
+    .hero-sub  { color: var(--teal); font-size: 0.95rem; margin-top: 0.25rem; }
+    .hero-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+    .hero-meta span { font-size: 0.85rem; color: var(--muted); }
+    .hero-meta strong { color: var(--text); }
+
+    /* ── Cards ──────────────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+    }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+    @media (max-width: 640px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    .label {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--teal); margin-bottom: 0.35rem;
+    }
+    .value { font-weight: 600; color: #fff; }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
+
+    /* ── Architecture tiers ─────────────────────────────────── */
+    .arch-row {
+      display: flex; align-items: stretch; gap: 0.5rem;
+      flex-wrap: wrap; margin-bottom: 1rem;
+    }
+    .tier {
+      flex: 1; min-width: 160px;
+      background: var(--navy2); border: 1px solid var(--border);
+      border-radius: 0.5rem; padding: 1rem;
+    }
+    .tier-header {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--teal);
+      border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .tier-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+    .tier-list  { list-style: none; }
+    .tier-list li { font-size: 0.8rem; color: var(--muted); padding: 0.15rem 0; }
+    .tier-list li::before { content: "• "; color: var(--teal); }
+    .arch-arrow {
+      display: flex; align-items: center; color: var(--teal);
+      font-size: 1.25rem; padding: 0 0.25rem; align-self: center;
+    }
+    .notif-box {
+      background: rgba(244,162,97,0.08); border: 1px solid rgba(244,162,97,0.4);
+      border-radius: 0.5rem; padding: 1rem; margin-top: 1rem;
+    }
+    .notif-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--amber); }
+    .notif-title { font-weight: 700; color: #fff; margin: 0.25rem 0; }
+    .notif-sub   { font-size: 0.8rem; color: var(--muted); }
+
+    .reuse-grid {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;
+    }
+    .reuse-chip {
+      background: rgba(15,157,157,0.1); border: 1px solid var(--border);
+      border-radius: 2rem; padding: 0.35rem 0.85rem;
+      font-size: 0.8rem; font-weight: 600; color: var(--teal);
+    }
+
+    /* ── Fault tree ─────────────────────────────────────────── */
+    .ft-tree { text-align: center; padding: 1rem 0; overflow-x: auto; }
+    .ft-top {
+      display: inline-block; background: var(--red);
+      color: #fff; font-weight: 700; font-size: 0.85rem;
+      padding: 0.6rem 1.25rem; border-radius: 0.375rem;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .ft-connector-v {
+      width: 2px; height: 2rem; background: var(--muted);
+      margin: 0 auto;
+    }
+    .ft-or-gate {
+      display: inline-block; background: var(--muted);
+      color: var(--navy); font-size: 0.7rem; font-weight: 800;
+      padding: 0.2rem 0.6rem; border-radius: 2rem; margin: 0 auto;
+    }
+    .ft-mid-row {
+      display: flex; justify-content: center; gap: 1rem;
+      margin-top: 1.5rem; flex-wrap: wrap;
+    }
+    .ft-branch { flex: 1; min-width: 160px; max-width: 220px; text-align: center; }
+    .ft-inter {
+      background: var(--navy2); border: 1px solid var(--muted);
+      border-radius: 0.375rem; padding: 0.6rem 0.75rem;
+      font-size: 0.8rem; font-weight: 600; color: #fff;
+    }
+    .ft-gate {
+      display: inline-block;
+      font-size: 0.65rem; font-weight: 800; padding: 0.15rem 0.5rem;
+      border-radius: 2rem; margin: 0.5rem auto;
+    }
+    .ft-and { background: var(--teal);  color: var(--navy); }
+    .ft-or2 { background: var(--muted); color: var(--navy); }
+    .ft-leaves { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
+    .ft-leaf {
+      background: rgba(15,157,157,0.08); border: 1px solid var(--teal);
+      border-radius: 0.375rem; padding: 0.45rem 0.6rem;
+      font-size: 0.72rem; color: var(--text); min-width: 90px;
+    }
+    .ft-legend {
+      display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem;
+      justify-content: center; font-size: 0.75rem; color: var(--muted);
+    }
+    .ft-legend span { display: flex; align-items: center; gap: 0.4rem; }
+    .ft-dot { width: 12px; height: 12px; border-radius: 2px; }
+
+    /* ── Dependability cards ────────────────────────────────── */
+    .dep-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.75rem;
+    }
+    .dep-card { border-radius: 0.5rem; padding: 1rem; }
+    .dep-card .dep-title { font-weight: 700; font-size: 0.9rem; color: #fff; margin-bottom: 0.5rem; }
+    .dep-card .dep-sub   { font-size: 0.72rem; color: rgba(255,255,255,0.6); margin-bottom: 0.75rem; }
+    .dep-card ul { list-style: none; }
+    .dep-card ul li { font-size: 0.78rem; padding: 0.2rem 0; }
+    .dep-card ul li::before { content: "✓ "; font-weight: 700; }
+
+    .dep-safety     { background: rgba(230,57,70,0.12);  border: 1px solid rgba(230,57,70,0.4); }
+    .dep-safety     ul li::before { color: var(--red); }
+    .dep-security   { background: rgba(155,89,182,0.12); border: 1px solid rgba(155,89,182,0.4); }
+    .dep-security   ul li::before { color: var(--purple); }
+    .dep-reliability{ background: rgba(15,157,157,0.12); border: 1px solid var(--border); }
+    .dep-reliability ul li::before { color: var(--teal); }
+    .dep-availability{ background: rgba(244,162,97,0.12);border: 1px solid rgba(244,162,97,0.4); }
+    .dep-availability ul li::before { color: var(--amber); }
+    .dep-resilience  { background: rgba(46,204,113,0.12);border: 1px solid rgba(46,204,113,0.4); }
+    .dep-resilience  ul li::before { color: var(--green); }
+
+    /* ── Evidence ───────────────────────────────────────────── */
+    .evidence-item {
+      border-left: 3px solid var(--teal); padding-left: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .ev-week  { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--teal); }
+    .ev-title { font-weight: 700; color: #fff; margin: 0.25rem 0; }
+    .ev-body  { font-size: 0.875rem; color: var(--text); }
+    .ev-tags  { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+    .ev-tag   {
+      font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.55rem;
+      border-radius: 2rem; background: rgba(15,157,157,0.15);
+      border: 1px solid var(--border); color: var(--teal);
+    }
+
+    /* ── Lessons ────────────────────────────────────────────── */
+    .lesson-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem;
+    }
+    .lesson-concept {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      color: var(--amber); margin-bottom: 0.35rem;
+    }
+    .lesson-title { font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+    .lesson-body  { font-size: 0.875rem; color: var(--text); }
+
+    /* ── Links ──────────────────────────────────────────────── */
+    .link-card {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 0.75rem; padding: 1.25rem; text-decoration: none;
+      transition: border-color 0.15s;
+    }
+    .link-card:hover { border-color: var(--teal); }
+    .link-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .link-label { font-weight: 700; color: #fff; font-size: 0.9rem; }
+    .link-url   { font-size: 0.8rem; color: var(--teal); }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    footer {
+      text-align: center; padding: 2rem;
+      color: var(--muted); font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── Hero ──────────────────────────────────────────────── -->
+  <div class="hero">
+    <div class="hero-avatar">👨‍💻</div>
+    <div>
+      <div class="hero-name">Abdulelah Alshareef</div>
+      <div class="hero-sub">Portfolio of Achievement — ملف الإنجاز</div>
+      <div class="hero-meta">
+        <span><strong>Student ID:</strong> 2247365</span>
+        <span><strong>Course:</strong> CPIT 455 — Software Engineering 2</span>
+        <span><strong>University:</strong> King Abdulaziz University</span>
+        <span><strong>Semester:</strong> Spring 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 01 Project Identity ───────────────────────────────── -->
+  <section id="project">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-title">Project Identity Card</div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:1rem">
+      <div class="card">
+        <div class="label">Project Name</div>
+        <div class="value" style="font-size:1.5rem;margin-bottom:0.5rem">MedAlert</div>
+        <div style="color:var(--muted);font-size:0.875rem;margin-bottom:1rem">Clinic Medication Management System</div>
+        <hr class="divider">
+        <div class="label" style="margin-top:0.75rem">Domain</div>
+        <div class="value">Healthcare — Medical Systems</div>
+        <hr class="divider">
+        <div class="label">System Type</div>
+        <div class="value">Web Application (Client-Server, 3-Tier)</div>
+        <hr class="divider">
+        <div class="label">Users</div>
+        <div class="value">Nurses &nbsp;•&nbsp; Doctors &nbsp;•&nbsp; Admins</div>
+      </div>
+
+      <div class="card">
+        <div class="label" style="color:var(--red)">The Problem</div>
+        <p style="margin:0.5rem 0 1.25rem;font-size:0.9rem">
+          Medication errors are the most common cause of patient harm in clinical settings —
+          a missed dose or wrong administration can trigger life-threatening complications
+          in chronic patients.
+        </p>
+        <hr class="divider">
+        <div class="label" style="color:var(--teal)">The Solution</div>
+        <p style="margin:0.5rem 0 0;font-size:0.9rem">
+          Without a real-time tracking system, there is no safety net between a human mistake
+          and a patient crisis. MedAlert closes that gap — providing live oversight, instant
+          alerts, and a full audit trail for every dose administered.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 02 Architecture ───────────────────────────────────── -->
+  <section id="architecture">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-title">System Architecture V1</div>
+    </div>
+
+    <div class="card">
+      <p style="color:var(--muted);font-size:0.85rem;margin-bottom:1.25rem;font-style:italic">
+        Pattern: Client-Server &nbsp;•&nbsp; 3-Tier Architecture
+      </p>
+
+      <div class="arch-row">
+        <div class="tier">
+          <div class="tier-header">Client Tier</div>
+          <div class="tier-title">Web Browser</div>
+          <div style="color:var(--muted);font-size:0.8rem;margin-bottom:0.5rem">React.js Frontend</div>
+          <ul class="tier-list">
+            <li>Nurse Dashboard</li>
+            <li>Doctor Reports</li>
+            <li>Admin Panel</li>
+          </ul>
+        </div>
+
+        <div class="arch-arrow">→<br><span style="font-size:0.65rem">HTTPS</span></div>
+
+        <div class="tier">
+          <div class="tier-header">Application Tier</div>
+          <div class="tier-title">Node.js + Express</div>
+          <div style="color:var(--muted);font-size:0.8rem;margin-bottom:0.5rem">REST API Server</div>
+          <ul class="tier-list">
+            <li>Auth &amp; Sessions</li>
+            <li>Medication Logic</li>
+            <li>Alert Engine</li>
+            <li>Report Generator</li>
+          </ul>
+        </div>
+
+        <div class="arch-arrow">→<br><span style="font-size:0.65rem">SQL</span></div>
+
+        <div class="tier">
+          <div class="tier-header">Data Tier</div>
+          <div class="tier-title">PostgreSQL + Firebase</div>
+          <div style="color:var(--muted);font-size:0.8rem;margin-bottom:0.5rem">Supabase Hosted</div>
+          <ul class="tier-list">
+            <li>Patient Records</li>
+            <li>Medication Schedules</li>
+            <li>Dose Logs</li>
+            <li>User Accounts</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="notif-box">
+        <div class="notif-label">Notification Service</div>
+        <div class="notif-title">Firebase Cloud Messaging</div>
+        <div class="notif-sub">Browser Push Alerts &nbsp;•&nbsp; Email via SendGrid</div>
+      </div>
+
+      <hr class="divider" style="margin-top:1.25rem">
+      <div class="label">Software Reuse</div>
+      <div class="reuse-grid">
+        <span class="reuse-chip">React.js — UI Framework</span>
+        <span class="reuse-chip">Node.js + Express — Backend API</span>
+        <span class="reuse-chip">PostgreSQL — Database</span>
+        <span class="reuse-chip">Firebase Auth — Authentication</span>
+        <span class="reuse-chip">FCM — Push Notifications</span>
+        <span class="reuse-chip">SendGrid — Email Alerts</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 03 Fault Tree ─────────────────────────────────────── -->
+  <section id="fault-tree">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-title">Fault Tree Analysis</div>
+    </div>
+
+    <div class="card">
+      <p style="color:var(--red);font-style:italic;font-size:0.875rem;margin-bottom:1.5rem">
+        Critical Failure Scenario: Patient Receives Wrong Dose
+      </p>
+
+      <div class="ft-tree">
+        <div class="ft-top">Patient Receives Wrong Dose</div>
+        <div class="ft-connector-v"></div>
+        <div class="ft-or-gate">OR</div>
+
+        <div class="ft-mid-row">
+
+          <!-- Branch 1 -->
+          <div class="ft-branch">
+            <div class="ft-inter">Incorrect Medication<br>Administered</div>
+            <div><span class="ft-gate ft-and">AND</span></div>
+            <div class="ft-leaves">
+              <div class="ft-leaf">Data Entry<br>Error by Nurse</div>
+              <div class="ft-leaf">Medication<br>DB Out of Sync</div>
+            </div>
+          </div>
+
+          <!-- Branch 2 -->
+          <div class="ft-branch">
+            <div class="ft-inter">System Failure<br>No Alert Sent</div>
+            <div><span class="ft-gate ft-and">AND</span></div>
+            <div class="ft-leaves">
+              <div class="ft-leaf">FCM Service<br>Downtime</div>
+              <div class="ft-leaf">Server<br>Crash / Overload</div>
+            </div>
+          </div>
+
+          <!-- Branch 3 -->
+          <div class="ft-branch">
+            <div class="ft-inter">Dose Timing<br>Error</div>
+            <div><span class="ft-gate ft-or2">OR</span></div>
+            <div class="ft-leaves">
+              <div class="ft-leaf">Clock Sync<br>Failure</div>
+              <div class="ft-leaf">Nurse Ignores<br>Alert</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="ft-legend">
+          <span><span class="ft-dot" style="background:var(--red)"></span> Top Event</span>
+          <span><span class="ft-dot" style="background:var(--navy2);border:1px solid var(--muted)"></span> Intermediate Event</span>
+          <span><span class="ft-dot" style="background:var(--teal)"></span> AND Gate</span>
+          <span><span class="ft-dot" style="background:var(--muted)"></span> OR Gate</span>
+          <span><span class="ft-dot" style="background:rgba(15,157,157,0.08);border:1px solid var(--teal)"></span> Root Cause (Leaf)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 04 Dependability ───────────────────────────────────── -->
+  <section id="dependability">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div class="section-title">Dependability — The 5 Attributes</div>
+    </div>
+
+    <div class="dep-grid">
+      <div class="dep-card dep-safety">
+        <div class="dep-title" style="color:#e63946">Safety</div>
+        <div class="dep-sub">Freedom from harm</div>
+        <ul>
+          <li>Dose rejected if &gt; MaxDose</li>
+          <li>Double-confirmation for medication deletion</li>
+          <li>System halts dose logging if DB unreachable</li>
+        </ul>
+      </div>
+      <div class="dep-card dep-security">
+        <div class="dep-title" style="color:#9b59b6">Security</div>
+        <div class="dep-sub">Protected from intrusion</div>
+        <ul>
+          <li>Role-based access (Nurse / Doctor / Admin)</li>
+          <li>Firebase Auth + Admin 2FA (TOTP)</li>
+          <li>HTTPS encryption in transit</li>
+        </ul>
+      </div>
+      <div class="dep-card dep-reliability">
+        <div class="dep-title" style="color:var(--teal)">Reliability</div>
+        <div class="dep-sub">Delivers service without failure</div>
+        <ul>
+          <li>Automated daily DB backups</li>
+          <li>Input validation on all entries</li>
+          <li>All exceptions caught and logged</li>
+        </ul>
+      </div>
+      <div class="dep-card dep-availability">
+        <div class="dep-title" style="color:var(--amber)">Availability</div>
+        <div class="dep-sub">Ready when requested</div>
+        <ul>
+          <li>High availability 7AM–11PM clinic hours</li>
+          <li>Alerts queued outside clinic hours</li>
+          <li>Graceful error pages — no silent crashes</li>
+        </ul>
+      </div>
+      <div class="dep-card dep-resilience">
+        <div class="dep-title" style="color:var(--green)">Resilience</div>
+        <div class="dep-sub">Maintains service under failure</div>
+        <ul>
+          <li>PM2 auto-restart on server crash</li>
+          <li>Rate limiting against brute-force</li>
+          <li>Full audit trail for post-incident recovery</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="background:var(--navy2);border:1px solid var(--border);border-radius:0.5rem;padding:0.875rem 1.25rem;margin-top:1rem;font-size:0.82rem;color:var(--muted);font-style:italic;text-align:center">
+      Critical Note: Attributes are interconnected — a Security breach destroys Availability.
+      MedAlert is designed with this interdependence in mind.
+    </div>
+  </section>
+
+  <!-- ── 05 My Contribution ────────────────────────────────── -->
+  <section id="evidence">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div class="section-title">My Contribution — Weekly Evidence</div>
+    </div>
+
+    <div class="card">
+
+      <div class="evidence-item">
+        <div class="ev-week">Iteration 1 — Week 1</div>
+        <div class="ev-title">Fault Tree Design</div>
+        <div class="ev-body">
+          I designed the fault tree analysis for our system's critical failure scenario:
+          <em>Patient Receives Wrong Dose</em>. I identified three distinct intermediate failure branches —
+          Incorrect Medication Administered, System Failure (No Alert Sent), and Dose Timing Error —
+          and mapped their root causes to specific system components. The AND/OR gate logic I chose
+          reflects how multiple simultaneous failures are required to trigger the top event,
+          which directly informs the safety mechanisms we built into the system.
+        </div>
+        <div class="ev-tags">
+          <span class="ev-tag">Fault Tree Analysis</span>
+          <span class="ev-tag">Safety Engineering</span>
+          <span class="ev-tag">Risk Identification</span>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="ev-week">Iteration 1 — Week 2</div>
+        <div class="ev-title">Project Idea Refinement</div>
+        <div class="ev-body">
+          I contributed to refining the project idea with the team. My specific input focused on
+          scoping the problem to clinical medication management — narrowing from a broader
+          "hospital management system" concept to a focused, single-responsibility system.
+          This decision made the dependability requirements clearer and more achievable.
+          I argued that a narrower scope with stronger safety guarantees is more valuable
+          than a wide scope with weak ones — a tradeoff directly taught in class.
+        </div>
+        <div class="ev-tags">
+          <span class="ev-tag">Problem Scoping</span>
+          <span class="ev-tag">Requirements Analysis</span>
+          <span class="ev-tag">Team Collaboration</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 06 Lessons from Homeworks ─────────────────────────── -->
+  <section id="lessons">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <div class="section-title">Lessons Learned</div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-concept">Concept — Dependability</div>
+      <div class="lesson-title">Safety and Security are not the same thing</div>
+      <div class="lesson-body">
+        Before this course I treated "safe" and "secure" as synonyms. Working on MedAlert made the
+        distinction concrete: <strong>Safety</strong> means the system cannot harm users even when it fails
+        (e.g., halting dose logging if the DB goes down rather than guessing),
+        while <strong>Security</strong> means unauthorized parties cannot access or corrupt the system.
+        A system can be safe but insecure, or secure but unsafe. Our MaxDose enforcement is a safety
+        measure; our RBAC is a security measure — they solve different problems.
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-concept">Concept — Fault Tree Analysis</div>
+      <div class="lesson-title">AND gates make systems safer than OR gates</div>
+      <div class="lesson-body">
+        When I drew the fault tree, I noticed that branches with AND gates require multiple
+        simultaneous failures to trigger — meaning any one mitigation breaks the chain.
+        This showed me why defense-in-depth works: not because any single layer is perfect,
+        but because attackers or faults must overcome all layers at once.
+        For MedAlert's "Incorrect Medication Administered" branch, both a nurse data entry error
+        AND a DB sync failure must occur together. Fixing either one prevents the top event.
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-concept">Concept — Architecture</div>
+      <div class="lesson-title">3-Tier separation forces better engineering decisions</div>
+      <div class="lesson-body">
+        Separating the client, application, and data tiers forced us to think about
+        where business logic lives. Early in the project I considered putting the MaxDose
+        validation in the frontend (React) for a faster user experience.
+        The 3-tier separation principle made it clear this was wrong — the frontend can be
+        bypassed by a direct API call. The safety rule must live in the application tier
+        where it cannot be circumvented. This is a concrete example of why architecture
+        decisions have security and safety consequences.
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── 07 Links ───────────────────────────────────────────── -->
+  <section id="links">
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <div class="section-title">Project Links</div>
+    </div>
+
+    <div class="grid-2">
+      <a class="link-card" href="https://github.com/ShareefAbdoo/MedAlert-CPIT455" target="_blank">
+        <div class="link-icon">🐙</div>
+        <div>
+          <div class="link-label">GitHub Repository</div>
+          <div class="link-url">github.com/ShareefAbdoo/MedAlert-CPIT455</div>
+        </div>
+      </a>
+      <a class="link-card" href="https://med-alert-cpit-455-21u3.vercel.app" target="_blank">
+        <div class="link-icon">🌐</div>
+        <div>
+          <div class="link-label">Live Demo</div>
+          <div class="link-url">med-alert-cpit-455-21u3.vercel.app</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  CPIT 455 — Software Engineering 2 &nbsp;|&nbsp; King Abdulaziz University &nbsp;|&nbsp;
+  Abdulelah Alshareef &nbsp;|&nbsp; Spring 2026
+</footer>
+
+</body>
+</html>

@@ -8,18 +8,18 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:   #0d1b2a;
-      --navy2:  #112240;
-      --teal:   #0f9d9d;
-      --teal2:  #0cc;
+      --navy:   #060a07;
+      --navy2:  #0d1610;
+      --teal:   #2ecc71;
+      --teal2:  #52d98a;
       --red:    #e63946;
       --amber:  #f4a261;
       --green:  #2ecc71;
       --purple: #9b59b6;
       --text:   #e0e0e0;
-      --muted:  #8a9bb0;
-      --card:   #16213e;
-      --border: rgba(15,157,157,0.25);
+      --muted:  #5a7565;
+      --card:   #0e1812;
+      --border: rgba(46,204,113,0.2);
     }
 
     body {
@@ -27,6 +27,7 @@
       color: var(--text);
       font-family: 'Segoe UI', system-ui, sans-serif;
       line-height: 1.6;
+      background-image: radial-gradient(ellipse at top left, rgba(46,204,113,0.04) 0%, transparent 60%);
     }
 
     /* ── Layout ─────────────────────────────────────────────── */
@@ -51,7 +52,7 @@
 
     /* ── Hero ───────────────────────────────────────────────── */
     .hero {
-      background: linear-gradient(135deg, var(--navy2) 0%, #0a3d4d 100%);
+      background: linear-gradient(135deg, var(--navy2) 0%, #0a1f0d 100%);
       border: 1px solid var(--border);
       border-radius: 1rem;
       padding: 2.5rem 2rem;
@@ -59,9 +60,13 @@
       display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
     }
     .hero-avatar {
-      width: 5rem; height: 5rem; border-radius: 50%;
-      background: var(--teal); display: flex; align-items: center;
-      justify-content: center; font-size: 2rem; flex-shrink: 0;
+      width: 5.5rem; height: 5.5rem; border-radius: 50%;
+      border: 2px solid var(--teal);
+      overflow: hidden; flex-shrink: 0;
+      box-shadow: 0 0 0 4px rgba(46,204,113,0.15);
+    }
+    .hero-avatar img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top center;
     }
     .hero-name { font-size: 1.75rem; font-weight: 800; color: #fff; }
     .hero-sub  { color: var(--teal); font-size: 0.95rem; margin-top: 0.25rem; }
@@ -254,7 +259,7 @@
 
   <!-- ── Hero ──────────────────────────────────────────────── -->
   <div class="hero">
-    <div class="hero-avatar">👨‍💻</div>
+    <div class="hero-avatar"><img src="Abdulelah Img.jpeg" alt="Abdulelah Alshareef"></div>
     <div>
       <div class="hero-name">Abdulelah Alshareef</div>
       <div class="hero-sub">Portfolio of Achievement — ملف الإنجاز</div>
